@@ -10,15 +10,15 @@ export function index(req, res) {
 
 
 export function create(req, res) {
-    tasker.new_task(new Date(2017, 1, 9, 23, 20, 0), 'chromecast');
+    tasker.new_task(req.params.date, req.params.item);
     res.json({status: 'ok'})
 }
 
 
 export function show(req, res) {
-    res.json(tasker.list(1))
+    res.json(tasker.list(req.params.id))
 }
 
 export function cancel(req, res) {
-    res.json(tasker.cancel(1))
+    res.json(tasker.cancel(req.params.id))
 }

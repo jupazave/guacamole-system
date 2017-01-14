@@ -1,10 +1,10 @@
 {
-  "name": "home-system",
-  "version": "1.0.0",
+  "name": "guacamole-system",
+  "version": "0.0.1",
   "description": "",
-  "main": "index.js",
+  "main": "server/index.js",
   "scripts": {
-    "start": "node index",
+    "start": "node server",
     "test": "echo \"Error: no test specified\" && exit 0"
   },
   "author": "",
@@ -13,6 +13,7 @@
     "babel-plugin-transform-class-properties": "^6.19.0",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.18.0",
     "babel-preset-es2015": "^6.18.0",
+    "babel-register": "^6.18.0",
     "babel-runtime": "^6.20.0",
     "chromecast-js": "^0.1.7",
     "express": "^4.14.0",

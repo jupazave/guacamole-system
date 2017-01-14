@@ -39,9 +39,12 @@ class Tasks{
     list(id = null) {
         console.log(this.tasks);
 
-        id = parseInt(id);
+        
 
         if (id) {
+
+            id = parseInt(id);
+            
             var results = this.tasks.map((task) => {
                 if(id === task.id) return task.id;
             });
