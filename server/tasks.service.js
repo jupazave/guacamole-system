@@ -10,60 +10,63 @@ class Tasks{
 
     running_id = 0;
 
-    new_task(date, task_type){
+    new(title, date, type){
 
         let callback;
 
-        switch(task_type){
+        if (!title || !date) {
+            return false;
+        }
+
+        switch(type){
             case 'chromecast':
                 callback = chromecast;
             break;
             default: 
-            callback = function() {};
+                callback = function() {};
             break;
         }
-        let job = scheduler.scheduleJob(date, () => { callback() });
+        
+        let job = scheduler.scheduleJob(new Date(date), () => { callback() });
 
         let task = {
             id: ++this.running_id,
             job: job,
-            title: "",
-            type: task_type,
-            date: date
+            title: type,
+            type: type,
+            date: new Date(date)
         }
+
+        console.log(task.job);
 
         this.tasks.push(task);
 
     }
 
-    list(id = null) {
-        console.log(this.tasks);
-
+    all() {
         
-
-        if (id) {
-
-            id = parseInt(id);
-            
-            var results = this.tasks.map((task) => {
-                if(id === task.id) return task.id;
-            });
-
-            if (results.length == 0) {
-                return [];
-            } else if (results.length == 1) {
-                return results[0];
-            } else {
-                return results;
-            } 
-        }
-        
-        return this.tasks.map((task) => task.id);
+        return this.tasks.map(task => {
+            return {
+                id: task.id, 
+                type: task.type, 
+                title: task.title,
+                date: task.date
+            }
+        });
     }
 
-    cancel(){
+    find(id) {
+        return this.tasks.find((task) => (task.id === id))
+    }
+
+    delete(id){
+
+        let index = this.tasks.indexOf(this.tasks.find((task) => (task.id === id)));
+        this.tasks[index].job.cancel();
+        delete this.tasks[index];
 
     }
+
 }
 
 export default new Tasks();
